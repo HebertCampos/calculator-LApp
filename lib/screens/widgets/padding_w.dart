@@ -7,9 +7,9 @@ class PaddingWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(8),
       child: Container(
-        width: 70,
+        width: MediaQuery.of(context).size.width / 5,
         height: 70,
         color: const Color(0xFF0E2954),
         child: botton,

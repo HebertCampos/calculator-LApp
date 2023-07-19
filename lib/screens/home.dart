@@ -1,4 +1,5 @@
 import 'package:calculator/screens/widgets/botton_w.dart';
+import 'package:math_expressions/math_expressions.dart';
 import 'package:flutter/material.dart';
 
 import 'widgets/padding_w.dart';
@@ -11,6 +12,21 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  String expresao = '';
+
+  void incrementaExpressao(String expres) {
+    setState(() {
+      expresao += expres;
+    });
+  }
+
+  double calculateExpression(String expresao) {
+    Parser p = Parser();
+    Expression exp = p.parse(expresao);
+    ContextModel cm = ContextModel();
+    return exp.evaluate(EvaluationType.REAL, cm);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,11 +49,11 @@ class _HomeState extends State<Home> {
               width: MediaQuery.of(context).size.width,
               height: 50,
               color: const Color(0xFF0E2954),
-              child: const Padding(
-                padding: EdgeInsets.all(8.0),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  '1+2-8*1',
-                  style: TextStyle(color: Color(0xFF84A7A1)),
+                  expresao,
+                  style: const TextStyle(color: Color(0xFF84A7A1)),
                 ),
               ),
             ),
@@ -57,40 +73,72 @@ class _HomeState extends State<Home> {
             const SizedBox(
               height: 20,
             ),
-            const Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                PaddingWidget(botton: BottonWidget(botao: '1')),
-                PaddingWidget(botton: BottonWidget(botao: '2')),
-                PaddingWidget(botton: BottonWidget(botao: '3')),
-                PaddingWidget(botton: BottonWidget(botao: '/')),
+                PaddingWidget(
+                    botton: BottonWidget(
+                        botao: '1', expresao: incrementaExpressao)),
+                PaddingWidget(
+                    botton: BottonWidget(
+                        botao: '2', expresao: incrementaExpressao)),
+                PaddingWidget(
+                    botton: BottonWidget(
+                        botao: '3', expresao: incrementaExpressao)),
+                PaddingWidget(
+                    botton: BottonWidget(
+                        botao: '/', expresao: incrementaExpressao)),
               ],
             ),
-            const Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                PaddingWidget(botton: BottonWidget(botao: '4')),
-                PaddingWidget(botton: BottonWidget(botao: '5')),
-                PaddingWidget(botton: BottonWidget(botao: '6')),
-                PaddingWidget(botton: BottonWidget(botao: '*')),
+                PaddingWidget(
+                    botton: BottonWidget(
+                        botao: '4', expresao: incrementaExpressao)),
+                PaddingWidget(
+                    botton: BottonWidget(
+                        botao: '5', expresao: incrementaExpressao)),
+                PaddingWidget(
+                    botton: BottonWidget(
+                        botao: '6', expresao: incrementaExpressao)),
+                PaddingWidget(
+                    botton: BottonWidget(
+                        botao: '*', expresao: incrementaExpressao)),
               ],
             ),
-            const Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                PaddingWidget(botton: BottonWidget(botao: '7')),
-                PaddingWidget(botton: BottonWidget(botao: '8')),
-                PaddingWidget(botton: BottonWidget(botao: '9')),
-                PaddingWidget(botton: BottonWidget(botao: '-')),
+                PaddingWidget(
+                    botton: BottonWidget(
+                        botao: '7', expresao: incrementaExpressao)),
+                PaddingWidget(
+                    botton: BottonWidget(
+                        botao: '8', expresao: incrementaExpressao)),
+                PaddingWidget(
+                    botton: BottonWidget(
+                        botao: '9', expresao: incrementaExpressao)),
+                PaddingWidget(
+                    botton: BottonWidget(
+                        botao: '-', expresao: incrementaExpressao)),
               ],
             ),
-            const Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                PaddingWidget(botton: BottonWidget(botao: '.')),
-                PaddingWidget(botton: BottonWidget(botao: '0')),
-                PaddingWidget(botton: BottonWidget(botao: '=')),
-                PaddingWidget(botton: BottonWidget(botao: '+')),
+                PaddingWidget(
+                    botton: BottonWidget(
+                        botao: '.', expresao: incrementaExpressao)),
+                PaddingWidget(
+                    botton: BottonWidget(
+                        botao: '0', expresao: incrementaExpressao)),
+                PaddingWidget(
+                    botton: BottonWidget(
+                        botao: '=', expresao: incrementaExpressao)),
+                PaddingWidget(
+                    botton: BottonWidget(
+                        botao: '+', expresao: incrementaExpressao)),
               ],
             ),
           ],

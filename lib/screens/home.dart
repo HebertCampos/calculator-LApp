@@ -13,6 +13,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   String expresao = '';
+  double valor = 0;
 
   void incrementaExpressao(String expres) {
     setState(() {
@@ -20,11 +21,17 @@ class _HomeState extends State<Home> {
     });
   }
 
-  double calculateExpression(String expresao) {
+  void calculoValor(String valor) {
+    expresao += expresao;
+  }
+
+  void calculateExpression(String expresao) {
     Parser p = Parser();
     Expression exp = p.parse(expresao);
     ContextModel cm = ContextModel();
-    return exp.evaluate(EvaluationType.REAL, cm);
+    setState(() {
+      valor = exp.evaluate(EvaluationType.REAL, cm);
+    });
   }
 
   @override
@@ -62,10 +69,10 @@ class _HomeState extends State<Home> {
               width: MediaQuery.of(context).size.width,
               height: 35,
               color: const Color(0xFF0E2954),
-              child: const Padding(
+              child: Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text(
-                  '= 25',
+                  valor.toString(),
                   style: TextStyle(color: Color(0xFF84A7A1)),
                 ),
               ),
@@ -78,16 +85,24 @@ class _HomeState extends State<Home> {
               children: [
                 PaddingWidget(
                     botton: BottonWidget(
-                        botao: '1', expresao: incrementaExpressao)),
+                        botao: '1',
+                        expresao: incrementaExpressao,
+                        valorExpresao: expresao)),
                 PaddingWidget(
                     botton: BottonWidget(
-                        botao: '2', expresao: incrementaExpressao)),
+                        botao: '2',
+                        expresao: incrementaExpressao,
+                        valorExpresao: expresao)),
                 PaddingWidget(
                     botton: BottonWidget(
-                        botao: '3', expresao: incrementaExpressao)),
+                        botao: '3',
+                        expresao: incrementaExpressao,
+                        valorExpresao: expresao)),
                 PaddingWidget(
                     botton: BottonWidget(
-                        botao: '/', expresao: incrementaExpressao)),
+                        botao: '/',
+                        expresao: incrementaExpressao,
+                        valorExpresao: expresao)),
               ],
             ),
             Row(
@@ -95,16 +110,24 @@ class _HomeState extends State<Home> {
               children: [
                 PaddingWidget(
                     botton: BottonWidget(
-                        botao: '4', expresao: incrementaExpressao)),
+                        botao: '4',
+                        expresao: incrementaExpressao,
+                        valorExpresao: expresao)),
                 PaddingWidget(
                     botton: BottonWidget(
-                        botao: '5', expresao: incrementaExpressao)),
+                        botao: '5',
+                        expresao: incrementaExpressao,
+                        valorExpresao: expresao)),
                 PaddingWidget(
                     botton: BottonWidget(
-                        botao: '6', expresao: incrementaExpressao)),
+                        botao: '6',
+                        expresao: incrementaExpressao,
+                        valorExpresao: expresao)),
                 PaddingWidget(
                     botton: BottonWidget(
-                        botao: '*', expresao: incrementaExpressao)),
+                        botao: '*',
+                        expresao: incrementaExpressao,
+                        valorExpresao: expresao)),
               ],
             ),
             Row(
@@ -112,16 +135,24 @@ class _HomeState extends State<Home> {
               children: [
                 PaddingWidget(
                     botton: BottonWidget(
-                        botao: '7', expresao: incrementaExpressao)),
+                        botao: '7',
+                        expresao: incrementaExpressao,
+                        valorExpresao: expresao)),
                 PaddingWidget(
                     botton: BottonWidget(
-                        botao: '8', expresao: incrementaExpressao)),
+                        botao: '8',
+                        expresao: incrementaExpressao,
+                        valorExpresao: expresao)),
                 PaddingWidget(
                     botton: BottonWidget(
-                        botao: '9', expresao: incrementaExpressao)),
+                        botao: '9',
+                        expresao: incrementaExpressao,
+                        valorExpresao: expresao)),
                 PaddingWidget(
                     botton: BottonWidget(
-                        botao: '-', expresao: incrementaExpressao)),
+                        botao: '-',
+                        expresao: incrementaExpressao,
+                        valorExpresao: expresao)),
               ],
             ),
             Row(
@@ -129,16 +160,41 @@ class _HomeState extends State<Home> {
               children: [
                 PaddingWidget(
                     botton: BottonWidget(
-                        botao: '.', expresao: incrementaExpressao)),
+                        botao: '.',
+                        expresao: incrementaExpressao,
+                        valorExpresao: expresao)),
                 PaddingWidget(
                     botton: BottonWidget(
-                        botao: '0', expresao: incrementaExpressao)),
+                        botao: '0',
+                        expresao: incrementaExpressao,
+                        valorExpresao: expresao)),
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width / 5,
+                    height: 70,
+                    color: const Color(0xFF0E2954),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        calculateExpression(expresao);
+                      },
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF0E2954)),
+                      child: const Text(
+                        "=",
+                        style: TextStyle(
+                            color: Color(0xFF84A7A1),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 28),
+                      ),
+                    ),
+                  ),
+                ),
                 PaddingWidget(
                     botton: BottonWidget(
-                        botao: '=', expresao: incrementaExpressao)),
-                PaddingWidget(
-                    botton: BottonWidget(
-                        botao: '+', expresao: incrementaExpressao)),
+                        botao: '+',
+                        expresao: incrementaExpressao,
+                        valorExpresao: expresao)),
               ],
             ),
           ],

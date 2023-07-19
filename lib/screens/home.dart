@@ -21,8 +21,17 @@ class _HomeState extends State<Home> {
     });
   }
 
-  void calculoValor(String valor) {
-    expresao += expresao;
+  void zera() {
+    setState(() {
+      expresao = '';
+      valor = 0;
+    });
+  }
+
+  void substituiValor() {
+    setState(() {
+      expresao = valor.toString();
+    });
   }
 
   void calculateExpression(String expresao) {
@@ -177,6 +186,7 @@ class _HomeState extends State<Home> {
                     child: ElevatedButton(
                       onPressed: () {
                         calculateExpression(expresao);
+                        substituiValor();
                       },
                       style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFF0E2954)),
@@ -197,6 +207,33 @@ class _HomeState extends State<Home> {
                         valorExpresao: expresao)),
               ],
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: EdgeInsetsDirectional.all(8),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width / 3,
+                    height: 70,
+                    color: const Color(0xFF0E2954),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        zera();
+                      },
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF0E2954)),
+                      child: const Text(
+                        "C",
+                        style: TextStyle(
+                            color: Color(0xFF84A7A1),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 28),
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            )
           ],
         ),
       ),
